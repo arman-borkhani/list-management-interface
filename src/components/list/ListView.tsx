@@ -3,9 +3,10 @@ import ListItem from "./ListItem";
 
 interface Props {
   items: Item[];
+  onDelete: (id: number) => void;
 }
 
-const ListView = ({ items }: Props) => {
+const ListView = ({ items, onDelete }: Props) => {
   if (items.length === 0) {
     return (
       <p className="text-gray-500">No items yet. Click Create to add one.</p>
@@ -15,7 +16,11 @@ const ListView = ({ items }: Props) => {
   return (
     <div className="space-y-4">
       {items.map((item) => (
-        <ListItem key={item.id} item={item} />
+        <ListItem
+          key={item.id}
+          item={item}
+          onDelete={() => onDelete(item.id)}
+        />
       ))}
     </div>
   );

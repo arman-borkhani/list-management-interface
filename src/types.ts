@@ -4,3 +4,5 @@ export interface Item {
   subtitle: string;
   createdAt: string;
 }
+
+export type Action = { type: "DELETE"; payload: number };
