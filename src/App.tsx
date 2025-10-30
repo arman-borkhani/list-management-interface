@@ -1,5 +1,7 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
+import ListModal from "./components/list/ListModal";
 import ListView from "./components/list/ListView";
+import Button from "./components/ui/Button";
 import { itemsReducer } from "./reducers";
 
 function App() {
@@ -12,6 +14,7 @@ function App() {
       createdAt: "10/30/2025, 9:48:36 AM",
     },
   ]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDelete = (id: number) => {
     dispatch({ type: "DELETE", payload: id });
@@ -21,9 +24,14 @@ function App() {
     <main>
       <div className="container">
         <div className="py-6 max-w-2xl mx-auto font-sans text-gray-800">
-          <h1 className="text-2xl font-semibold mb-6">List Management</h1>
+          <div className="flex justify-between items-center gap-4 mb-6">
+            <h1 className="text-2xl font-semibold">List Management</h1>
+            <Button onClick={() => setIsModalOpen(true)}>Create</Button>
+          </div>
 
           <ListView items={items} onDelete={handleDelete} />
+
+          <ListModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
       </div>
     </main>
