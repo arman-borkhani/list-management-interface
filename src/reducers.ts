@@ -1,4 +1,9 @@
-import type { Action, Item } from "./types";
+import type { Item } from "./types";
+
+type Action =
+  | { type: "CREATE"; payload: Item }
+  | { type: "UPDATE"; payload: Item }
+  | { type: "DELETE"; payload: number };
 
 export function itemsReducer(state: Item[], action: Action): Item[] {
   switch (action.type) {
