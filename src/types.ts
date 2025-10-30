@@ -7,4 +7,5 @@ export interface Item {
 
 export type Action =
   | { type: "CREATE"; payload: Item }
+  | { type: "UPDATE"; payload: Item }
   | { type: "DELETE"; payload: number };

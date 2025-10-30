@@ -3,10 +3,11 @@ import ListItem from "./ListItem";
 
 interface Props {
   items: Item[];
+  onEdit: (item: Item) => void;
   onDelete: (id: number) => void;
 }
 
-const ListView = ({ items, onDelete }: Props) => {
+const ListView = ({ items, onEdit, onDelete }: Props) => {
   if (items.length === 0) {
     return (
       <p className="text-gray-500">No items yet. Click Create to add one.</p>
@@ -19,6 +20,7 @@ const ListView = ({ items, onDelete }: Props) => {
         <ListItem
           key={item.id}
           item={item}
+          onEdit={() => onEdit(item)}
           onDelete={() => onDelete(item.id)}
         />
       ))}

@@ -1,4 +1,5 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import type { Item } from "../../types";
 import Button from "../ui/Button";
 import Dialog from "../ui/Dialog";
 import Input from "../ui/Input";
@@ -7,11 +8,22 @@ interface Props {
   open: boolean;
   onClose: () => void;
   onSubmit: (data: { title: string; subtitle: string }) => void;
+  editingItem: Item | null;
 }
 
-const ListModal = ({ open, onClose, onSubmit }: Props) => {
+const ListModal = ({ open, onClose, onSubmit, editingItem }: Props) => {
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
+
+  useEffect(() => {
+    if (editingItem) {
+      setTitle(editingItem.title);
+      setSubtitle(editingItem.subtitle);
+    } else {
+      setTitle("");
+      setSubtitle("");
+    }
+  }, [editingItem]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -23,7 +35,9 @@ const ListModal = ({ open, onClose, onSubmit }: Props) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <h2 className="text-lg font-semibold mb-4">Create Item</h2>
+      <h2 className="text-lg font-semibold mb-4">
+        {editingItem ? "Edit Item" : "Create Item"}
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium mb-1" htmlFor="title">
@@ -52,7 +66,7 @@ const ListModal = ({ open, onClose, onSubmit }: Props) => {
           <Button type="button" variant="outline" onClick={onClose}>
             Cancel
           </Button>
-          <Button type="submit">Create</Button>
+          <Button type="submit">{editingItem ? "Save" : "Create"}</Button>
         </div>
       </form>
     </Dialog>
