@@ -5,4 +5,6 @@ export interface Item {
   createdAt: string;
 }
 
-export type Action = { type: "DELETE"; payload: number };
+export type Action =
+  | { type: "CREATE"; payload: Item }
+  | { type: "DELETE"; payload: number };

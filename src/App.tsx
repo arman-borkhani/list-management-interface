@@ -20,6 +20,19 @@ function App() {
     dispatch({ type: "DELETE", payload: id });
   };
 
+  const handleSubmit = (data: { title: string; subtitle: string }) => {
+    dispatch({
+      type: "CREATE",
+      payload: {
+        id: items.length ? Math.max(...items.map((it) => it.id)) + 1 : 1,
+        title: data.title,
+        subtitle: data.subtitle,
+        createdAt: new Date().toLocaleString(),
+      },
+    });
+    setIsModalOpen(false);
+  };
+
   return (
     <main>
       <div className="container">
@@ -31,7 +44,11 @@ function App() {
 
           <ListView items={items} onDelete={handleDelete} />
 
-          <ListModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+          <ListModal
+            open={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onSubmit={handleSubmit}
+          />
         </div>
       </div>
     </main>
