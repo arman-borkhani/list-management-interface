@@ -6,15 +6,7 @@ import { itemsReducer } from "./reducers";
 import type { Item } from "./types";
 
 function App() {
-  const [items, dispatch] = useReducer(itemsReducer, [
-    {
-      id: 1,
-      title:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-      subtitle: "Lorem ipsum",
-      createdAt: "10/30/2025, 9:48:36 AM",
-    },
-  ]);
+  const [items, dispatch] = useReducer(itemsReducer, []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<Item | null>(null);
 
